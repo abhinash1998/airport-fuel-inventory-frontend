@@ -25,7 +25,13 @@
 									class="form-control"
 									v-model="transactionForm.transactionType"
 								>
-									<option selected disabled class="text-muted">Select</option>
+									<option
+										selected
+										disabled
+										class="text-muted"
+									>
+										Select
+									</option>
 									<option value="In">In</option>
 									<option value="Out">Out</option>
 								</select>
@@ -36,7 +42,11 @@
 									class="form-control"
 									v-model="transactionForm.airport"
 								>
-									<option selected disabled class="text-muted">
+									<option
+										selected
+										disabled
+										class="text-muted"
+									>
 										Select Airport
 									</option>
 
@@ -55,7 +65,11 @@
 									class="form-control"
 									v-model="transactionForm.aircraft"
 								>
-									<option selected disabled class="text-muted">
+									<option
+										selected
+										disabled
+										class="text-muted"
+									>
 										Select Aircraft
 									</option>
 
@@ -119,7 +133,7 @@
 					</tr>
 				</thead>
 				<tbody>
-<tr
+					<tr
 						v-if="!transactionList || transactionList?.length === 0"
 						class="text-muted"
 					>
@@ -149,11 +163,7 @@
 
 <script>
 import Navbar from './Navbar.vue';
-import Vue from 'vue';
-import axios from 'axios';
-import VueAxios from 'vue-axios';
-import {baseUrl} from '../baseUrl/baseUrl'
-Vue.use(VueAxios, axios);
+import axios from '../helpers/axios';
 
 export default {
 	name: 'Transaction',
@@ -178,15 +188,15 @@ export default {
 	mounted() {
 		this.transactionList = null;
 		setTimeout(() => {
-			this.fetchTransactionList();			
+			this.fetchTransactionList();
 		}, 500);
 		this.fetchAirportList();
 		this.fetchAircraftList();
 	},
 	methods: {
-		fetchTransactionList() {
-			this.axios
-				.get(`${baseUrl}/transaction`)
+		async fetchTransactionList() {
+			await axios
+				.get('/transaction')
 				.then((res) => {
 					this.transactionList = res.data;
 				})
@@ -197,34 +207,28 @@ export default {
 					}
 				});
 		},
-		fetchAirportList() {
-			this.axios
-				.get(`${baseUrl}/airport`)
-				.then((res) => {
-					this.airportList = res.data;
-					console.log(res.data);
-				});
+		async fetchAirportList() {
+			await axios.get('/airport').then((res) => {
+				this.airportList = res.data;
+				console.log(res.data);
+			});
 		},
-		fetchAircraftList() {
-			this.axios
-				.get(`${baseUrl}/aircraft`)
-				.then((res) => {
-					this.aircraftList = res.data;
-					console.log(res.data);
-				});
+		async fetchAircraftList() {
+			await axios.get('/aircraft').then((res) => {
+				this.aircraftList = res.data;
+				console.log(res.data);
+			});
 		},
-		addTransaction() {
+		async addTransaction() {
 			this.submitting = true;
-			this.axios
-				.post(
-					`${baseUrl}/transaction`,
-					this.transactionForm
-				)
+			await axios
+				.post('/transaction', this.transactionForm)
 				.then((res) => {
 					console.log(res);
-				}).catch(err=>{
-                    console.log(err);
-                })
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 		}
 	}
 };

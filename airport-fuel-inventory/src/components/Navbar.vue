@@ -48,7 +48,7 @@
 					</li>
 				</ul>
 
-				<span class="navbar-text cursor-pointer">Logout</span>
+				<span class="navbar-text cursor-pointer" v-on:click="logOut()">Logout</span>
 			</div>
 		</div>
 	</nav>
@@ -64,6 +64,10 @@ export default {
 			} else {
 				return true;
 			}
+		},
+		logOut() {
+			localStorage.setItem('token',null);
+			this.$router.push('/');
 		}
 	}
 };

@@ -108,11 +108,7 @@
 
 <script>
 import Navbar from './Navbar.vue';
-import Vue from 'vue';
-import axios from 'axios';
-import VueAxios from 'vue-axios';
-import { baseUrl } from '../baseUrl/baseUrl';
-Vue.use(VueAxios, axios);
+import axios from '../helpers/axios';
 
 export default {
 	name: 'Airport',
@@ -132,15 +128,12 @@ export default {
 		};
 	},
 	mounted() {
-		this.airportList = null;
-		setTimeout(() => {
-			this.fetchAirportList();
-		}, 500);
+		this.fetchAirportList();
 	},
 	methods: {
-		fetchAirportList() {
-			this.axios
-				.get(`${baseUrl}/airport`)
+		async fetchAirportList() {
+			await axios
+				.get('/airport')
 				.then((res) => {
 					this.airportList = res.data;
 				})
@@ -151,13 +144,11 @@ export default {
 					}
 				});
 		},
-		addAirport() {
+		async addAirport() {
 			this.submitting = true;
-			this.axios
-				.post(`${baseUrl}/airport`, this.airportForm)
-				.then((res) => {
-					console.log(res);
-				});
+			await axios.post('/airport', this.airportForm).then((res) => {
+				console.log(res);
+			});
 		}
 	}
 };

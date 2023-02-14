@@ -34,10 +34,8 @@
 </template>
 
 <script>
-import Vue from "vue";
 import axios from "axios";
-import VueAxios from "vue-axios";
-Vue.use(VueAxios, axios);
+import {baseUrl} from '../baseUrl/baseUrl';
 
 export default {
    name: 'Login',
@@ -55,9 +53,10 @@ export default {
    methods: {
     loginUser() {
         this.submitting = true;
-        this.axios.post('http://localhost:5000/api/v1/user/login', this.loginForm)
-        .then(()=>{
-             this.$router.push('/airport')
+        axios.post(`${baseUrl}/user/login`, this.loginForm)
+        .then((res)=>{
+          localStorage.setItem('token', res.data.token)
+          this.$router.push('/airport')
         })
         .catch((err)=>{
              this.submitting = false;

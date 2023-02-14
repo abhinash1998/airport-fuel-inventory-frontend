@@ -9,13 +9,27 @@ import FuelConsumptionReport from '../components/Reports/FuelConsumptionReport.v
 
 Vue.use(VueRouter);
 
+const isAuthenticated = (to, from, next) => {
+	const token = localStorage.getItem('token');
+	// console.log(token);
+	if (!token && to.name != 'Login') {
+		console.log(token);
+		next({
+			name: 'Login',
+			path: '/'
+			// query: { redirect: to.fullPath }
+		});
+	} else next();
+};
+
 const routes = [
 	{ path: '/', component: Login },
-	{ path: '/airport', component: Airport },
+	{ path: '/airport', component: Airport, beforeEnter: isAuthenticated },
 	{ path: '/aircraft', component: Aircraft },
 	{ path: '/transaction', component: Transaction },
 	{ path: '/airportConsumptionReport', component: AirportConsumptionReport },
 	{ path: '/fuelConsumptionReport', component: FuelConsumptionReport }
+	// { path: '**', component: Login }
 ];
 
 export default new VueRouter({

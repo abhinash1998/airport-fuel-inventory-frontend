@@ -49,7 +49,8 @@
 import Navbar from '../Navbar.vue';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import {baseUrl} from '../../baseUrl/baseUrl'
+import axios from '../../helpers/axios'
+
 export default {
 	name: 'AirportConsumptionReport',
 	components: {
@@ -57,7 +58,8 @@ export default {
 	},
 	data() {
 		return {
-			airportConsumptionReport: []
+			airportConsumptionReport: [],
+			errorMessage: null
 		};
 	},
 	mounted() {
@@ -67,9 +69,9 @@ export default {
 		}, 500);
 	},
 	methods: {
-		fetchAirportConsumptionReport() {
-			this.axios
-				.get(`${baseUrl}/airport`)
+		async fetchAirportConsumptionReport() {
+			await axios
+				.get('/airport')
 				.then((res) => {
 					this.airportConsumptionReport = res.data;
 				})

@@ -120,11 +120,7 @@
 
 <script>
 import Navbar from './Navbar.vue';
-import Vue from 'vue';
-import axios from 'axios';
-import VueAxios from 'vue-axios';
-import { baseUrl } from '../baseUrl/baseUrl';
-Vue.use(VueAxios, axios);
+import axios from '../helpers/axios';
 
 export default {
 	name: 'Aircraft',
@@ -151,8 +147,8 @@ export default {
 		}, 500);
 	},
 	methods: {
-		fetchAircraftList() {
-			this.axios.get(`${baseUrl}/aircraft`).then((res) => {
+		async fetchAircraftList() {
+			await axios.get('/aircraft').then((res) => {
 				this.aircraftList = res.data;
 			})
 			.catch((err) => {
@@ -162,10 +158,10 @@ export default {
 					}
 				});
 		},
-		addAircraft() {
+		async addAircraft() {
 			this.submitting = true;
-			this.axios
-				.post(`${baseUrl}/aircraft`, this.aircraftForm)
+			await axios
+				.post('/aircraft', this.aircraftForm)
 				.then((res) => {
 					console.log(res);
 				})
