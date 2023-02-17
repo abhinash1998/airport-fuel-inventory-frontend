@@ -12,7 +12,7 @@ Vue.use(VueRouter);
 const isAuthenticated = (to, from, next) => {
 	const token = localStorage.getItem('token');
 	// console.log(token);
-	if (!token && to.name != 'Login') {
+	if (!token) {
 		console.log(token);
 		next({
 			name: 'Login',
@@ -27,8 +27,11 @@ const routes = [
 	{ path: '/airport', component: Airport, beforeEnter: isAuthenticated },
 	{ path: '/aircraft', component: Aircraft },
 	{ path: '/transaction', component: Transaction },
-	{ path: '/airportConsumptionReport', component: AirportConsumptionReport },
-	{ path: '/fuelConsumptionReport', component: FuelConsumptionReport }
+	{
+		path: '/airport-consumption-report',
+		component: AirportConsumptionReport
+	},
+	{ path: '/fuel-consumption-report', component: FuelConsumptionReport }
 	// { path: '**', component: Login }
 ];
 

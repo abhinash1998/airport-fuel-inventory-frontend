@@ -170,42 +170,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.table-container {
-	width: 70%;
-}
 
-.button-width {
-	width: 150px;
-}
-
-.modal-width {
-	width: 400px;
-}
-
-.modal-header {
-	background-color: #f3f5f7;
-	border-bottom: 1px solid #cce0e4;
-	height: 48px;
-}
-
-.modal-body {
-	padding: 2rem;
-}
-
-.font-size {
-	font-size: 0.9rem;
-}
-
-.login-button {
-	background-color: #367;
-	width: 140px;
-	border: 1px solid #367;
-	padding: 2px;
-}
-
-.button-disable {
-	background-color: #6c757d;
-	border: 1px solid #6c757d;
-}
-</style>

@@ -62,7 +62,6 @@ export default {
              this.submitting = false;
             this.errorMessage = err.response.data.message;
             this.error = true;
-            console.log(err)
         })
     }
    } 
@@ -74,6 +73,7 @@ export default {
   width: 400px;  
   height: auto;
   margin: auto;
+  margin-top: 10%;
 }
 
 .card-header {
@@ -87,17 +87,5 @@ export default {
     border: 1px solid #bcb9b9;
     padding: 4px;
     width: 17rem;
-}
-
-.login-button {
-  background-color: #367;
-    width: 140px;
-    border: 1px solid #367;
-    padding: 2px;
-}
-
-.button-disable {
-    background-color: #6c757d;
-    border: 1px solid #6c757d;
 }
 </style>

@@ -115,9 +115,3 @@ export default {
 	}
 };
 </script>
-
-<style scoped>
-.table-container {
-	width: 70%;
-}
-</style>
